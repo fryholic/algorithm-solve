@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#define mod 1234567891
+
 using namespace std;
 
 
@@ -15,23 +17,26 @@ int main() {
 
     cin >> L >> S;
 
-    int a[50];
+    long long int a[50];
     fill_n(a, 50, 0);
 
     int size = S.size();
 
-    for (int i = 0; i < size; i++) {
-        a[i] = (int)S[i] - 96;
-        a[i] *= (int)pow(31, (double)i);
-    }
-
-    int sum = 0;
+    long long int sum = 0;
 
     for (int i = 0; i < size; i++) {
+        a[i] = S[i] - 96;
+        if (i == 0) {
+            sum += a[i];
+            continue;
+        }
+        for (int j = 0; j < i; j++) {
+            a[i] = (a[i] * 31) % mod;
+        }
         sum += a[i];
     }
-
-    int H = sum % 1234567891;
+    
+    long long int H = sum % 1234567891;
 
     cout << H;
 
