@@ -1,41 +1,59 @@
 #include <iostream>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <stack>
 #include <string>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <functional>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <chrono>
+#include <random>
 #include <cmath>
+#include <limits>
+#include <type_traits>
+#include <utility>
+#include <array>
+#include <list>
+#include <deque>
+#include <queue>
+#include <stack>
 #include <bitset>
 
 using namespace std;
 
-int main() {
- ios::sync_with_stdio(0);
- cin.tie(0);
- 
- int N, M;
- cin >> N >> M;
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
 
- string S;
- cin >> S;
+	int N, M;
+	cin >> N >> M;
 
- string Pn;
- int window = 2 * N + 1;
+	string S;
+	cin >> S;
 
- for (int i = 0; i < window; i++) {
-	 if (i % 2 == 0) Pn += 'I';
-	 else Pn += 'O';
- }
+	int ans = 0;
 
- int count = 0;
 
- for (int i = 0; i < M; i++) {
-	 string temp = S.substr(i, window);
-	 if (temp == Pn) {
-		 count++;
-	 }
- }
+	for (int i = 0; i < M; i++) {
+		int j = 0;
+		if (S[i] == 'I') {
+			while(i + 2 < M && S[i + 1] == 'O' && S[i + 2] == 'I') {
+				j++;
+				if (j == N) {
+					ans++;
+					j--;
+				}
+				i += 2;
+			}
+		}
+	}
 
- cout << count << "\n";
- return 0;
+	cout << ans << '\n';
+
+	return 0;
+
 }
